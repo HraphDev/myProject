@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tableau de Bord - Gestion du Marché</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <link href="assets/css/tailwind.min.css" rel="stylesheet">
+  <!-- Vos styles personnalisés -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  <style>
+    .sidebar {
+      transition: transform 0.3s ease;
+    }
+    .sidebar.collapsed {
+      transform: translateX(-100%);
+    }
+    .nav-link:hover {
+      text-decoration: underline;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
+    .modal-header {
+      background-color: #007bff;
+      color: white;
+    }
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+    }
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+
+    <!-- Sidebar (Optional) -->
+    <nav class="sidebar bg-dark text-white p-3">
+        <h4>Gestion du Marché</h4>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Accueil</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Gestion des Viandes</a>
+            </li>
+            <!-- Add other links here -->
+        </ul>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row mt-4">
+            <div class="col-12">
+                <h2 class="mb-4">Gestion des Viandes</h2>
+                <div class="d-flex justify-content-between mb-3">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#addMeatModal">Ajouter une viande</button>
+                    <input type="text" class="form-control w-25" placeholder="Rechercher...">
+                </div>
+
+                <!-- Meat Cards (Dynamic Content) -->
+                <div id="meat-cards" class="row">
+                    <!-- Example Meat Card -->
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <img src="path/to/meat.jpg" class="card-img-top" alt="Viande">
+                            <div class="card-body">
+                                <h5 class="card-title">Viande Exemple</h5>
+                                <p class="card-text">Description courte de la viande.</p>
+                                <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editMeatModal">Modifier</button>
+                                <button class="btn btn-danger btn-sm">Supprimer</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- More meat cards will be injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Meat Modal -->
+    <div class="modal fade" id="addMeatModal" tabindex="-1" role="dialog" aria-labelledby="addMeatModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addMeatModalLabel">Ajouter une Viande</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="meatName">Nom de la Viande</label>
+                            <input type="text" class="form-control" id="meatName" placeholder="Nom de la viande">
+                        </div>
+                        <div class="form-group">
+                            <label for="meatDescription">Description</label>
+                            <textarea class="form-control" id="meatDescription" rows="3" placeholder="Description de la viande"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="meatImage">Image de la Viande</label>
+                            <input type="file" class="form-control-file" id="meatImage">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary">Ajouter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Meat Modal -->
+    <div class="modal fade" id="editMeatModal" tabindex="-1" role="dialog" aria-labelledby="editMeatModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editMeatModalLabel">Modifier la Viande</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="editMeatName">Nom de la Viande</label>
+                            <input type="text" class="form-control" id="editMeatName" value="Viande Exemple">
+                        </div>
+                        <div class="form-group">
+                            <label for="editMeatDescription">Description</label>
+                            <textarea class="form-control" id="editMeatDescription" rows="3">Description courte de la viande.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="editMeatImage">Image de la Viande</label>
+                            <input type="file" class="form-control-file" id="editMeatImage">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary">Modifier</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/scripts.js"></script>
+    <script>
+        // Initialize the Meats management page
+        createCategoryPage('meats');
+    </script>
+
+</body>
+</html>
